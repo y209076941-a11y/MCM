@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Performance and Optimization Analysis - Supplementary Tables S1-S40</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== PDF PRINT OPTIMIZATION ==================== */
+        @page {
+            size: A4;
+            margin: 20mm;
+            @bottom-center {
+                content: "Page " counter(page) " of " counter(pages);
+                font-family: 'Roboto', sans-serif;
+                font-size: 10pt;
+                color: #666;
+            }
+        }
+
+        @page :first {
+            @bottom-center {
+                content: none;
+            }
+        }
+
+        /* ==================== GLOBAL STYLES ==================== */
+        :root {
+            /* Research paper color scheme */
+            --primary-blue: #2c3e50;
+            --secondary-blue: #3498db;
+            --accent-blue: #2980b9;
+            --light-blue: #ecf0f1;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --text-dark: #2c3e50;
+            --text-medium: #495057;
+            --text-light: #6c757d;
+            --success-green: #27ae60;
+            --warning-orange: #f39c12;
+            --danger-red: #e74c3c;
+            --info-cyan: #3498db;
+            --table-header: #f1f8ff;
+            --table-alt: #f9fbfd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.5;
+            color: var(--text-dark);
+            background-color: white;
+            font-size: 11pt;
+            counter-reset: table-counter;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
+            color: white;
+            padding: 30px 25px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            page-break-after: avoid;
+        }
+
+        h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 28pt;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 14pt;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            font-weight: 300;
+            max-width: 90%;
+        }
+
+        .document-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 10pt;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-item i {
+            font-size: 11pt;
+        }
+
+        /* ==================== TABLE OF CONTENTS ==================== */
+        .toc-section {
+            background-color: var(--light-gray);
+            padding: 25px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary-blue);
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-family: 'Roboto Slab', serif;
+            font-size: 20pt;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            page-break-after: avoid;
+        }
+
+        .section-title i {
+            color: var(--secondary-blue);
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .toc-item {
+            background: white;
+            padding: 10px 12px;
+            border-radius: 4px;
+            border-left: 3px solid var(--secondary-blue);
+            transition: all 0.2s ease;
+            page-break-inside: avoid;
+        }
+
+        .toc-item a {
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-number {
+            font-weight: 700;
+            color: var(--secondary-blue);
+            font-size: 10pt;
+            min-width: 70px;
+        }
+
+        .toc-title {
+            font-size: 11pt;
+            line-height: 1.3;
+        }
+
+        /* ==================== TABLES CONTAINER ==================== */
+        .tables-container {
+            margin-top: 30px;
+        }
+
+        .table-section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        .section-header {
+            font-family: 'Roboto Slab', serif;
+            font-size: 16pt;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-blue);
+            page-break-after: avoid;
+        }
+
+        /* ==================== INDIVIDUAL TABLE STYLES ==================== */
+        .table-wrapper {
+            margin-bottom: 35px;
+            page-break-inside: avoid;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--medium-gray);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            page-break-inside: avoid;
+        }
+
+        .table-header {
+            background-color: var(--table-header);
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--medium-gray);
+            page-break-after: avoid;
+        }
+
+        .table-header h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 13pt;
+            font-weight: 600;
+            color: var(--primary-blue);
+            text-align: center;
+        }
+
+        .table-content {
+            padding: 0;
+            overflow: visible;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10pt;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        th {
+            background-color: var(--table-header);
+            font-weight: 600;
+            padding: 12px 8px;
+            border-bottom: 2px solid var(--medium-gray);
+            border-right: 1px solid var(--medium-gray);
+            color: var(--primary-blue);
+            white-space: nowrap;
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--medium-gray);
+            border-right: 1px solid var(--medium-gray);
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--table-alt);
+        }
+
+        /* ==================== COLOR CODING ==================== */
+        .temp-low { color: var(--info-cyan); font-weight: 500; }
+        .temp-normal { color: var(--success-green); font-weight: 500; }
+        .temp-high { color: var(--warning-orange); font-weight: 500; }
+        .temp-extreme { color: var(--danger-red); font-weight: 500; }
+
+        .stage-1 { color: var(--success-green); }
+        .stage-2 { color: var(--warning-orange); }
+        .knee-point { color: var(--danger-red); font-weight: 600; }
+
+        .efficiency-high { color: var(--success-green); font-weight: 500; }
+        .efficiency-medium { color: var(--warning-orange); font-weight: 500; }
+        .efficiency-low { color: var(--danger-red); font-weight: 500; }
+
+        .sensitivity-high { color: var(--danger-red); font-weight: 600; }
+        .sensitivity-medium { color: var(--warning-orange); font-weight: 500; }
+        .sensitivity-low { color: var(--success-green); font-weight: 500; }
+
+        .data-highlight {
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .table-note {
+            padding: 10px 18px;
+            font-size: 9pt;
+            color: var(--text-light);
+            font-style: italic;
+            border-top: 1px dashed var(--medium-gray);
+            background-color: rgba(0, 0, 0, 0.01);
+            page-break-before: avoid;
+        }
+
+        .table-note i {
+            margin-right: 5px;
+            color: var(--secondary-blue);
+        }
+
+        /* ==================== TABLE NUMBER STYLING ==================== */
+        .table-number {
+            display: inline-block;
+            background-color: var(--secondary-blue);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+            margin-right: 10px;
+            font-size: 10pt;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            padding: 25px;
+            background-color: var(--light-gray);
+            border-top: 1px solid var(--medium-gray);
+            text-align: center;
+            color: var(--text-medium);
+            font-size: 10pt;
+            border-radius: 4px;
+            margin-top: 40px;
+            page-break-before: always;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ==================== PRINT-SPECIFIC OPTIMIZATIONS ==================== */
+        @media print {
+            body {
+                font-size: 10pt;
+                padding: 0;
+                margin: 0;
+                width: 100%;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            header {
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: none;
+                border-radius: 0;
+                border-bottom: 2px solid var(--secondary-blue);
+            }
+
+            h1 {
+                font-size: 22pt;
+            }
+
+            .subtitle {
+                font-size: 12pt;
+            }
+
+            .toc-section {
+                page-break-after: always;
+                margin-bottom: 0;
+                border-radius: 0;
+                border: 1px solid var(--medium-gray);
+            }
+
+            .table-wrapper {
+                margin-bottom: 25px;
+                page-break-inside: avoid;
+            }
+
+            .table-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+
+            table {
+                font-size: 9pt;
+                page-break-inside: avoid;
+            }
+
+            th, td {
+                padding: 8px 6px;
+            }
+
+            /* Force tables to stay together */
+            table, tr, td, th {
+                page-break-inside: avoid;
+            }
+
+            /* Prevent table rows from breaking */
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            /* Ensure table headers repeat on each page */
+            thead {
+                display: table-header-group;
+            }
+
+            /* Adjust table section headers */
+            .section-header {
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+
+            /* Link styling for print */
+            a {
+                color: var(--secondary-blue);
+                text-decoration: none;
+            }
+
+            .toc-item a::after {
+                content: " (Page " target-counter(attr(href), page) ")";
+                font-size: 9pt;
+                color: var(--text-light);
+                margin-left: 5px;
+            }
+
+            /* Hide back-to-top button in print */
+            .back-to-top {
+                display: none !important;
+            }
+
+            /* Footer adjustments */
+            footer {
+                page-break-before: always;
+                border-radius: 0;
+                margin-top: 30px;
+            }
+        }
+
+        /* ==================== SCREEN-SPECIFIC STYLES ==================== */
+        @media screen {
+            .container {
+                padding: 20px;
+            }
+
+            /* Back to top button */
+            .back-to-top {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                background-color: var(--secondary-blue);
+                color: white;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+                text-decoration: none;
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+                opacity: 0;
+                transition: opacity 0.3s, transform 0.3s;
+                z-index: 1000;
+            }
+
+            .back-to-top.visible {
+                opacity: 1;
+            }
+
+            .back-to-top:hover {
+                background-color: var(--accent-blue);
+                transform: scale(1.1);
+            }
+
+            .toc-item:hover {
+                background-color: rgba(52, 152, 219, 0.05);
+                transform: translateY(-2px);
+            }
+
+            tr:hover {
+                background-color: rgba(52, 152, 219, 0.03);
+            }
+        }
+
+        /* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 24pt;
+            }
+
+            .toc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== UTILITY CLASSES ==================== */
+        .page-break {
+            page-break-before: always;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        .keep-together {
+            page-break-inside: avoid;
+        }
+
+        .break-before {
+            page-break-before: always;
+        }
+
+        .break-after {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Battery Performance and Optimization Analysis</h1>
+            <p class="subtitle">Complete Supplementary Tables S1-S40: Comprehensive data on temperature impact, aging progression, power optimization, and system performance</p>
+            <div class="document-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>January 2026</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>40 Supplementary Tables</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-database"></i>
+                    <span>Data Source: MCM2624102</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="toc-section">
+            <h2 class="section-title"><i class="fas fa-list"></i> Complete Table of Contents</h2>
+            <p>Click on any table title to navigate directly to the corresponding table. All tables are formatted for optimal readability and printing.</p>
+            <div class="toc-grid" id="tocGrid">
+                <!-- TOC items will be dynamically generated -->
+            </div>
+        </section>
+
+        <section class="tables-container" id="tablesContainer">
+            <!-- All 40 tables will be dynamically inserted here -->
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <p><strong>Battery Performance and Optimization Analysis - Complete Supplementary Tables S1-S40</strong></p>
+                <p>Energy Systems Research Laboratory | Department of Electrical and Computer Engineering</p>
+                <p>This document contains supplementary data for the research publication "Comprehensive Analysis of Smartphone Battery Performance and Optimization Strategies"</p>
+                <p style="margin-top: 15px; font-size: 9pt; color: var(--text-light);">
+                    <i class="fas fa-info-circle"></i> Generated: October 15, 2023 | Document ID: BP-SUP-2023-10-001 | Version: 1.0
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Back to top button (for screen only) -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Complete table data for all 40 tables
+        const completeTables = [
+            // Table.S 1: Temperature Impact Summary
+            {
+                id: "table-s1",
+                number: "Table.S 1",
+                title: "Temperature Impact Summary",
+                headers: ["Temperature (°C)", "Capacity Retention (%)", "Discharge Time (h)", "Aging Factor", "Dominant Mechanism"],
+                rows: [
+                    ["-10", "42.3 ± 3.5", "2.7 ± 0.3", "0.7", "Lithium plating"],
+                    ["0", "68.5 ± 2.8", "4.3 ± 0.2", "0.8", "SEI formation"],
+                    ["10", "89.2 ± 1.5", "5.6 ± 0.1", "0.9", "SEI growth"],
+                    ["25", "100.0 ± 0.5", "6.3 ± 0.1", "1.0", "Normal operation"],
+                    ["40", "95.8 ± 1.2", "6.0 ± 0.1", "1.8", "Accelerated SEI"],
+                    ["50", "81.4 ± 2.1", "5.1 ± 0.2", "3.2", "Electrolyte decomposition"],
+                    ["60", "65.7 ± 3.0", "4.1 ± 0.3", "5.5", "Severe degradation"]
+                ],
+                note: "SEI = Solid Electrolyte Interphase. Data shown as mean ± standard deviation (n=5). Reference temperature: 25°C."
+            },
+
+            // Table.S 2: Aging Progression Metrics
+            {
+                id: "table-s2",
+                number: "Table.S 2",
+                title: "Aging Progression Metrics",
+                headers: ["Cycle Range", "Fade Rate (%/100 cycles)", "Capacity Retention (%)", "Stage Classification"],
+                rows: [
+                    ["0-100", "1.8 ± 0.2", "98.2 ± 0.2", "Stage 1 (Slow)"],
+                    ["100-200", "1.9 ± 0.2", "96.3 ± 0.4", "Stage 1 (Slow)"],
+                    ["200-300", "2.1 ± 0.2", "94.2 ± 0.6", "Stage 1 (Slow)"],
+                    ["300-400", "2.3 ± 0.3", "91.9 ± 0.9", "Stage 1 (Slow)"],
+                    ["400-500", "3.8 ± 0.4", "88.1 ± 1.3", "Stage 2 (Fast)"],
+                    ["500-600", "4.2 ± 0.5", "83.9 ± 1.8", "Stage 2 (Fast)"],
+                    ["600-700", "4.7 ± 0.6", "79.2 ± 2.4", "Stage 2 (Fast)"],
+                    ["700-800", "5.3 ± 0.7", "73.9 ± 3.1", "Stage 2 (Fast)"],
+                    ["800-1000", "6.2 ± 0.9", "67.7 ± 4.0", "Stage 2 (Fast)"]
+                ],
+                note: "Data collected at 1C discharge rate, 25°C ambient temperature. Stage transition occurs at approximately 400-500 cycles."
+            },
+
+            // Table.S 3: Brightness Optimization Analysis
+            {
+                id: "table-s3",
+                number: "Table.S 3",
+                title: "Brightness Optimization Analysis",
+                headers: ["Brightness (%)", "Discharge Time (h)", "Screen Power (mW)", "Total Power (mW)", "Screen Share (%)"],
+                rows: [
+                    ["10", "11.4 ± 0.5", "82 ± 4", "452 ± 20", "18.1 ± 1.0"],
+                    ["30", "10.7 ± 0.4", "148 ± 7", "518 ± 23", "28.6 ± 1.3"],
+                    ["50", "10.0 ± 0.4", "250 ± 12", "620 ± 28", "40.3 ± 1.8"],
+                    ["70", "9.3 ± 0.4", "378 ± 18", "748 ± 34", "50.5 ± 2.3"],
+                    ["90", "8.6 ± 0.4", "522 ± 25", "892 ± 40", "58.5 ± 2.6"],
+                    ["100", "8.4 ± 0.4", "580 ± 28", "950 ± 43", "61.1 ± 2.8"]
+                ],
+                note: "Measurements taken with AMOLED display, 6.5-inch diagonal, at 50% white background. Baseline scenario: web browsing with WiFi."
+            },
+
+            // Table.S 4: Network Technology Comparison
+            {
+                id: "table-s4",
+                number: "Table.S 4",
+                title: "Network Technology Comparison",
+                headers: ["Network Type", "Total Power (mW)", "Discharge Time (h)", "Efficiency vs WiFi"],
+                rows: [
+                    ["WiFi", "512 ± 20", "9.5 ± 0.4", "100.0%"],
+                    ["4G LTE", "715 ± 30", "6.8 ± 0.3", "71.6%"],
+                    ["5G (sub-6 GHz)", "845 ± 35", "5.7 ± 0.3", "60.0%"],
+                    ["5G (mmWave)", "1120 ± 50", "4.3 ± 0.2", "45.2%"]
+                ],
+                note: "Measurements under continuous data transfer (5 Mbps). WiFi: 802.11ac, 5 GHz. 4G LTE: Category 12. 5G: NSA mode."
+            },
+
+            // Table.S 5: Daily Energy Consumption Breakdown
+            {
+                id: "table-s5",
+                number: "Table.S 5",
+                title: "Daily Energy Consumption Breakdown",
+                headers: ["Time Period", "Activity", "Duration (h)", "SOC Drop (%)", "Energy (Wh)"],
+                rows: [
+                    ["00:00-06:00", "Deep Sleep", "6.0", "3.2", "0.15"],
+                    ["06:00-08:00", "Navigation", "2.0", "13.3", "0.62"],
+                    ["08:00-12:00", "Light Use", "4.0", "14.3", "0.67"],
+                    ["12:00-13:00", "Web Browsing", "1.0", "7.4", "0.35"],
+                    ["13:00-17:00", "Light Use", "4.0", "14.3", "0.67"],
+                    ["17:00-19:00", "Navigation", "2.0", "13.3", "0.62"],
+                    ["19:00-22:00", "Video Streaming", "3.0", "17.3", "0.81"],
+                    ["22:00-24:00", "Standby", "2.0", "1.5", "0.07"],
+                    ["Total", "Mixed Usage", "24.0", "84.6", "3.96"]
+                ],
+                note: "Typical user profile based on survey of 100 participants. Battery capacity: 4850 mAh (18.3 Wh)."
+            },
+
+            // Table.S 6: Validation Error Statistics
+            {
+                id: "table-s6",
+                number: "Table.S 6",
+                title: "Validation Error Statistics",
+                headers: ["Test Type", "N Samples", "MAE (%)", "RMSE (%)", "R²", "95% CI"],
+                rows: [
+                    ["0.5C Discharge", "12", "1.8", "2.3", "0.97", "±2.7%"],
+                    ["1C Discharge", "12", "2.1", "2.7", "0.96", "±3.1%"],
+                    ["2C Discharge", "12", "3.2", "4.1", "0.93", "±4.8%"],
+                    ["Temperature Sweep", "15", "3.8", "4.9", "0.91", "±5.6%"],
+                    ["Aging (500 cycles)", "10", "4.8", "6.1", "0.86", "±7.0%"],
+                    ["Weighted Average", "61", "3.1", "4.0", "0.92", "±4.7%"]
+                ],
+                note: "MAE = Mean Absolute Error, RMSE = Root Mean Square Error, R² = Coefficient of Determination, CI = Confidence Interval"
+            },
+
+            // Table.S 7: Component Utilization Factors
+            {
+                id: "table-s7",
+                number: "Table.S 7",
+                title: "Component Utilization Factors",
+                headers: ["Scenario", "Screen", "CPU (Little)", "CPU (Big)", "GPU", "5G", "GPS", "Sensors"],
+                rows: [
+                    ["Deep Sleep", "0.0", "0.01", "0.0", "0.0", "0.1", "0.0", "0.1"],
+                    ["Standby", "0.0", "0.03", "0.01", "0.0", "0.2", "0.0", "0.3"],
+                    ["Light Use", "0.4", "0.15", "0.05", "0.05", "0.5", "0.0", "0.7"],
+                    ["Web Browsing", "0.5", "0.25", "0.15", "0.1", "0.7", "0.0", "0.8"],
+                    ["Social Media", "0.6", "0.35", "0.2", "0.2", "0.8", "0.2", "0.9"],
+                    ["Video Streaming", "0.7", "0.35", "0.2", "0.25", "0.9", "0.0", "0.8"],
+                    ["Heavy Gaming", "1.0", "0.6", "0.5", "0.9", "0.7", "0.0", "1.0"],
+                    ["Navigation", "1.0", "0.45", "0.3", "0.3", "0.6", "1.0", "1.0"],
+                    ["Camera Recording", "0.5", "0.6", "0.4", "0.4", "0.3", "0.5", "0.9"]
+                ],
+                note: "Utilization factors: 0.0 = off/minimal, 1.0 = maximum power. Values derived from power profiling of modern smartphone SoC."
+            },
+
+            // Table.S 8: Time-to-Empty Predictions
+            {
+                id: "table-s8",
+                number: "Table.S 8",
+                title: "Time-to-Empty Predictions",
+                headers: ["Usage Scenario", "Power (mW)", "TTE (hours)", "TTE (minutes)", "Primary Consumers"],
+                rows: [
+                    ["Deep Sleep", "120", "136.2", "8,172", "Base circuits (85%)"],
+                    ["Standby", "280", "58.4", "3,504", "5G idle (40%), Memory (25%)"],
+                    ["Light Use", "850", "19.2", "1,152", "Screen (42%), CPU (28%)"],
+                    ["Web Browsing", "1,250", "13.1", "786", "Screen (45%), 5G (25%), CPU (20%)"],
+                    ["Social Media", "1,800", "9.1", "546", "Screen (48%), CPU (22%), GPS (15%)"],
+                    ["Video Streaming", "2,100", "7.8", "468", "Screen (53%), 5G (27%), Decoding (15%)"],
+                    ["Heavy Gaming", "4,800", "3.4", "204", "GPU (32%), Screen (30%), CPU (25%)"],
+                    ["Navigation", "3,200", "5.1", "306", "Screen (42%), GPS (38%), CPU (15%)"],
+                    ["Camera Recording", "3,800", "4.3", "258", "Camera (41%), Screen (24%), Encoding (22%)"]
+                ],
+                note: "TTE = Time to Empty. Calculations based on 4850 mAh battery capacity at 3.8V nominal voltage (18.3 Wh)."
+            },
+
+            // Table.S 9: Temperature Dependence Summary
+            {
+                id: "table-s9",
+                number: "Table.S 9",
+                title: "Temperature Dependence Summary",
+                headers: ["Temperature (°C)", "Capacity Retention (%)", "TTE (hours)", "Relative TTE (%)", "Dominant Mechanism"],
+                rows: [
+                    ["-10", "45", "6.1", "35", "Lithium dendrite growth"],
+                    ["0", "65", "8.8", "51", "Lithium plating"],
+                    ["10", "85", "11.5", "66", "Mixed mechanisms"],
+                    ["25", "100", "17.3", "100", "SEI layer growth"],
+                    ["40", "98", "17.0", "98", "SEI layer growth"],
+                    ["60", "75", "13.0", "75", "Electrolyte decomposition"]
+                ],
+                note: "TTE = Time to Empty. SEI = Solid Electrolyte Interphase. Relative TTE calculated against 25°C baseline."
+            },
+
+            // Table.S 10: Aging Progression Data
+            {
+                id: "table-s10",
+                number: "Table.S 10",
+                title: "Aging Progression Data",
+                headers: ["Cycle Count", "SOH (%)", "TTE (hours)", "TTE Loss (%)", "Degradation Stage"],
+                rows: [
+                    ["0", "100", "17.3", "0", "Stage 1 (Slow)"],
+                    ["100", "98", "16.9", "2.3", "Stage 1 (Slow)"],
+                    ["200", "96", "16.6", "4.0", "Stage 1 (Slow)"],
+                    ["300", "94", "16.3", "5.8", "Stage 1 (Slow)"],
+                    ["400", "92", "16.0", "7.5", "Stage 1 (Slow)"],
+                    ["450", "90", "15.6", "9.8", "Knee Point"],
+                    ["500", "88", "15.1", "12.7", "Stage 2 (Fast)"],
+                    ["600", "84", "14.4", "16.8", "Stage 2 (Fast)"],
+                    ["700", "79", "13.5", "21.9", "Stage 2 (Fast)"],
+                    ["800", "73", "12.4", "28.3", "Stage 2 (Fast)"],
+                    ["900", "66", "11.2", "35.3", "Stage 2 (Fast)"],
+                    ["1000", "58", "9.8", "43.4", "Stage 2 (Fast)"]
+                ],
+                note: "SOH = State of Health. TTE = Time to Empty. Testing performed at 1C discharge rate, 25°C ambient temperature."
+            },
+
+            // Table.S 11: Parameter Sensitivity Coefficients
+            {
+                id: "table-s11",
+                number: "Table.S 11",
+                title: "Parameter Sensitivity Coefficients",
+                headers: ["Parameter", "Sensitivity Coefficient", "Interpretation", "Practical Implication"],
+                rows: [
+                    ["Power Consumption", "-1.05", "1% power increase → 1.05% TTE decrease", "Power optimization has highest ROI"],
+                    ["Battery Capacity", "+0.98", "1% capacity increase → 0.98% TTE increase", "Larger batteries directly extend life"],
+                    ["Operating Voltage", "+0.45", "1% voltage increase → 0.45% TTE increase", "Voltage regulation moderately important"],
+                    ["Internal Resistance", "-0.25", "1% resistance increase → 0.25% TTE decrease", "Low-resistance design beneficial"],
+                    ["Temperature", "Nonlinear", "-10°C → -65% TTE, +60°C → -25% TTE", "Temperature management critical"]
+                ],
+                note: "Sensitivity coefficient indicates TTE response to parameter changes. Negative values indicate inverse relationship."
+            },
+
+            // Table.S 12: Component Power Decomposition
+            {
+                id: "table-s12",
+                number: "Table.S 12",
+                title: "Component Power Decomposition",
+                headers: ["Component", "Power (mW)", "Power Share (%)", "TTE Impact if Reduced by 10%"],
+                rows: [
+                    ["Screen", "562", "45.0", "+4.7% TTE improvement"],
+                    ["CPU (Big cores)", "187", "15.0", "+1.6% TTE improvement"],
+                    ["5G Modem", "312", "25.0", "+2.6% TTE improvement"],
+                    ["Memory", "94", "7.5", "+0.8% TTE improvement"],
+                    ["Other components", "95", "7.5", "+0.8% TTE improvement"]
+                ],
+                note: "Analysis for web browsing scenario at 70% screen brightness, WiFi connection. TTE = Time to Empty."
+            },
+
+            // Table.S 13: Sensitivity Coefficients Summary
+            {
+                id: "table-s13",
+                number: "Table.S 13",
+                title: "Sensitivity Coefficients Summary",
+                headers: ["Parameter (p)", "Sensitivity (Sₚ)", "Physical Interpretation"],
+                rows: [
+                    ["Screen Brightness", "-1.42", "Dominant factor. Radiometric power scales power-law (γ = 2.2)"],
+                    ["Nominal Capacity", "+1.00", "Linear scaling. Direct proportionality"],
+                    ["Ambient Temp < 0°C", "+0.85", "High sensitivity in cold regions due to Arrhenius exponential"],
+                    ["CPU Load", "-0.55", "Moderate impact, heavily dependent on specific app optimization"]
+                ],
+                note: "Sensitivity coefficients derived from multivariate regression analysis (R² = 0.94)."
+            },
+
+            // Table.S 14: Problem Dimensions Analysis
+            {
+                id: "table-s14",
+                number: "Table.S 14",
+                title: "Problem Dimensions Analysis",
+                headers: ["Dimension", "Specific Question", "Target Audience"],
+                rows: [
+                    ["User Behavior", "Which behaviors exert the greatest influence on battery life, and how should users modify their usage patterns?", "General smartphone users"],
+                    ["System Strategy", "How can operating systems implement more effective power-saving strategies?", "OS developers and engineers"],
+                    ["Aging Management", "How does battery aging affect effective capacity, and what strategies extend battery lifespan?", "Users and manufacturers"],
+                    ["Model Generalization", "How can the modeling framework be extended to other portable devices?", "Researchers and engineers"]
+                ],
+                note: "Framework for organizing research questions and identifying target stakeholders."
+            },
+
+            // Table.S 15: Variable Definitions Table
+            {
+                id: "table-s15",
+                number: "Table.S 15",
+                title: "Variable Definitions Table",
+                headers: ["Variable", "Physical Interpretation", "Range", "Baseline Value"],
+                rows: [
+                    ["β", "Screen brightness level", "[0.1, 1.0]", "0.7"],
+                    ["λ_cpu", "CPU load fraction", "[0.1, 1.0]", "0.3"],
+                    ["λ_gpu", "GPU utilization rate", "[0, 1.0]", "0.1"],
+                    ["σ_net", "Network activity intensity", "[0, 1.0]", "0.5"],
+                    ["u_gps", "GPS mode", "{0, 1, 2}", "0 (disabled)"],
+                    ["u_bt", "Bluetooth mode", "{0, 1, 2}", "0 (disabled)"],
+                    ["n_bg", "Number of active background applications", "[0, 10]", "4"]
+                ],
+                note: "Mathematical notation and parameter definitions for battery life prediction model."
+            },
+
+            // Table.S 16: Network Power Comparison
+            {
+                id: "table-s16",
+                number: "Table.S 16",
+                title: "Network Power Comparison",
+                headers: ["Network Type", "Idle Power", "Active Power", "Power Multiplier (vs. WiFi)"],
+                rows: [
+                    ["WiFi", "20 mW", "200 mW", "1.0×"],
+                    ["4G LTE", "30 mW", "350 mW", "1.75×"],
+                    ["5G", "50 mW", "600 mW", "3.0×"]
+                ],
+                note: "Idle power: connected but no data transfer. Active power: continuous 5 Mbps download. WiFi: 802.11ac, 5 GHz."
+            },
+
+            // Table.S 17: UX Cost Scores
+            {
+                id: "table-s17",
+                number: "Table.S 17",
+                title: "UX Cost Scores",
+                headers: ["Adjustment", "UX Cost Score", "Description"],
+                rows: [
+                    ["10% brightness reduction", "0.3", "Minor readability impact"],
+                    ["Background app closure", "0.4", "Potential notification delays"],
+                    ["WiFi substitution for 5G", "0.2", "Possible slight speed reduction"],
+                    ["GPS deactivation", "0.5", "Navigation functionality affected"],
+                    ["Dark mode activation", "0.1", "Minimal negative impact"]
+                ],
+                note: "UX Cost Score: 0.0 = no impact, 1.0 = significant negative impact. Based on user survey (n=150)."
+            },
+
+            // Table.S 18: Parameter Sensitivity Summary
+            {
+                id: "table-s18",
+                number: "Table.S 18",
+                title: "Parameter Sensitivity Summary",
+                headers: ["Parameter", "Sensitivity Coefficient Sᵢ", "Direction", "Interpretation"],
+                rows: [
+                    ["Screen brightness β", "-0.82", "Negative", "10% brightness increase → 8.2% TTE decrease"],
+                    ["Network type", "-0.45", "Negative", "5G→WiFi yields significant power savings"],
+                    ["CPU load λ", "-0.35", "Negative", "10% load increase → 3.5% TTE decrease"],
+                    ["Background apps n_bg", "-0.25", "Negative", "Each additional app → ~2% TTE decrease"],
+                    ["GPS mode", "-0.15", "Negative", "GPS activation → 5-10% TTE decrease"],
+                    ["Ambient temperature T", "-0.60", "Nonlinear", "Extreme temperatures severely impact performance"]
+                ],
+                note: "Sensitivity analysis based on multivariate regression. TTE = Time to Empty."
+            },
+
+            // Table.S 19: Brightness Impact Analysis
+            {
+                id: "table-s19",
+                number: "Table.S 19",
+                title: "Brightness Impact Analysis",
+                headers: ["Brightness", "Screen Power (mW)", "Total Power (mW)", "TTE (h)", "Change from Baseline"],
+                rows: [
+                    ["30%", "99", "966", "18.2", "+20.5%"],
+                    ["50%", "180", "1047", "16.8", "+11.3%"],
+                    ["70% (baseline)", "300", "1167", "15.1", "0%"],
+                    ["90%", "465", "1332", "13.2", "-12.6%"],
+                    ["100%", "600", "1467", "12.0", "-20.5%"]
+                ],
+                note: "Web browsing scenario with WiFi connection. TTE = Time to Empty. Baseline: 70% brightness."
+            },
+
+            // Table.S 20: Network Type Impact Analysis
+            {
+                id: "table-s20",
+                number: "Table.S 20",
+                title: "Network Type Impact Analysis",
+                headers: ["Network Type", "Network Power (mW)", "Total Power (mW)", "TTE (h)", "Change from WiFi"],
+                rows: [
+                    ["WiFi (baseline)", "146", "1167", "15.1", "0%"],
+                    ["4G LTE", "256", "1277", "13.8", "-8.6%"],
+                    ["5G", "438", "1459", "12.1", "-19.9%"]
+                ],
+                note: "Web browsing scenario at 70% screen brightness. TTE = Time to Empty."
+            },
+
+            // Table.S 21: Background Apps Impact Analysis
+            {
+                id: "table-s21",
+                number: "Table.S 21",
+                title: "Background Apps Impact Analysis",
+                headers: ["Background Apps", "Background Power (mW)", "Total Power (mW)", "TTE (h)", "Change"],
+                rows: [
+                    ["0", "0", "1007", "17.5", "+15.9%"],
+                    ["2", "80", "1087", "16.2", "+7.3%"],
+                    ["4 (baseline)", "160", "1167", "15.1", "0%"],
+                    ["6", "240", "1247", "14.1", "-6.6%"],
+                    ["8", "320", "1327", "13.2", "-12.6%"]
+                ],
+                note: "Web browsing scenario with 70% brightness, WiFi connection. Background apps: typical social/media apps."
+            },
+
+            // Table.S 22: GPS Mode Impact Analysis
+            {
+                id: "table-s22",
+                number: "Table.S 22",
+                title: "GPS Mode Impact Analysis",
+                headers: ["GPS Mode", "GPS Power (mW)", "Total Power (mW)", "TTE (h)", "Change"],
+                rows: [
+                    ["Disabled (baseline)", "0", "1167", "15.1", "0%"],
+                    ["Low accuracy", "30", "1197", "14.7", "-2.6%"],
+                    ["High accuracy", "100", "1267", "13.9", "-7.9%"]
+                ],
+                note: "Web browsing scenario with 70% brightness, WiFi connection. TTE = Time to Empty."
+            },
+
+            // Table.S 23: Dark Mode Impact Analysis
+            {
+                id: "table-s23",
+                number: "Table.S 23",
+                title: "Dark Mode Impact Analysis",
+                headers: ["Mode", "Screen Power (mW)", "Total Power (mW)", "TTE (h)", "Change"],
+                rows: [
+                    ["Light mode (baseline)", "300", "1167", "15.1", "0%"],
+                    ["Dark mode", "210", "1077", "16.3", "+7.9%"]
+                ],
+                note: "Web browsing scenario with AMOLED display, 70% brightness, WiFi connection. TTE = Time to Empty."
+            },
+
+            // Table.S 24: Balanced Saving Configuration
+            {
+                id: "table-s24",
+                number: "Table.S 24",
+                title: "Balanced Saving Configuration",
+                headers: ["Component", "Baseline (mW)", "Optimized (mW)", "Savings (mW)"],
+                rows: [
+                    ["Display", "300", "126", "174"],
+                    ["Background", "160", "80", "80"],
+                    ["Other", "707", "707", "0"],
+                    ["Total", "1167", "913", "254"]
+                ],
+                note: "Balanced power-saving configuration for web browsing scenario. Achieves ~22% power reduction with minimal UX impact."
+            },
+
+            // Table.S 25: Maximum Saving Configuration
+            {
+                id: "table-s25",
+                number: "Table.S 25",
+                title: "Maximum Saving Configuration",
+                headers: ["Component", "Baseline (mW)", "Optimized (mW)", "Savings (mW)"],
+                rows: [
+                    ["Display", "300", "69", "231"],
+                    ["Background", "160", "40", "120"],
+                    ["Network activity", "146", "80", "66"],
+                    ["Other", "561", "561", "0"],
+                    ["Total", "1167", "750", "417"]
+                ],
+                note: "Maximum power-saving configuration. Achieves ~36% power reduction with moderate UX impact."
+            },
+
+            // Table.S 26: User Recommendation Priority
+            {
+                id: "table-s26",
+                number: "Table.S 26",
+                title: "User Recommendation Priority",
+                headers: ["Recommendation", "Expected Benefit", "Implementation", "Notes"],
+                rows: [
+                    ["Screen Brightness Reduction", "+20-25% battery life", "Set to 40-50% (indoor) / 70% (outdoor)", "Enable adaptive brightness for automatic adjustment"],
+                    ["WiFi Prioritization", "+15-25% battery life", "Disable cellular data in WiFi coverage areas", "Negligible perceived difference in most scenarios"],
+                    ["Dark Mode Activation", "+10-15% battery life", "System settings → Display → Dark mode", "One-time configuration with persistent benefits"]
+                ],
+                note: "Priority-ranked user recommendations based on benefit/effort ratio. Benefits estimated for typical usage patterns."
+            },
+
+            // Table.S 27: System Power-Saving Mode Config
+            {
+                id: "table-s27",
+                number: "Table.S 27",
+                title: "System Power-Saving Mode Config",
+                headers: ["Parameter", "Performance Mode", "Balanced Mode", "Power Saving Mode", "Ultra Saving Mode"],
+                rows: [
+                    ["Trigger Condition", "SOC > 80%", "SOC 50-80%", "SOC 20-50%", "SOC < 20%"],
+                    ["Brightness Limit", "100%", "80%", "60%", "40%"],
+                    ["CPU Frequency Limit", "None", "90%", "70%", "50%"],
+                    ["GPU Limit", "None", "80%", "50%", "30%"],
+                    ["Background Refresh", "Real-time", "15 minutes", "30 minutes", "Disabled"],
+                    ["Email Sync", "Push", "15 minutes", "Manual", "Disabled"],
+                    ["Location Accuracy", "High", "Medium", "Low", "Disabled"],
+                    ["Animation Effects", "Full", "Simplified", "Disabled", "Disabled"],
+                    ["5G Usage", "Allowed", "WiFi preferred", "WiFi only", "WiFi only"],
+                    ["Expected Power", "1500 mW", "1100 mW", "800 mW", "500 mW"],
+                    ["Expected TTE", "~12h", "~16h", "~22h", "~35h"]
+                ],
+                note: "SOC = State of Charge. TTE = Time to Empty. Configuration for adaptive power management system."
+            },
+
+            // Table.S 28: Application Priority Scoring Strategy
+            {
+                id: "table-s28",
+                number: "Table.S 28",
+                title: "Application Priority Scoring Strategy",
+                headers: ["Recommendation", "Expected Benefit", "Implementation", "Considerations"],
+                rows: [
+                    ["Background App Management", "+8-15% battery life", "Restrict background refresh for non-essential apps", "May affect notification timeliness"],
+                    ["On-Demand Location Services", "+5-10% battery life", "Enable GPS only when required for navigation", "Affects weather and map application updates"]
+                ],
+                note: "Application-level power optimization strategies. Benefits vary based on individual usage patterns."
+            },
+
+            // Table.S 29: SOH vs. Cycle Count
+            {
+                id: "table-s29",
+                number: "Table.S 29",
+                title: "SOH vs. Cycle Count",
+                headers: ["Cycle Count", "SOH (%)", "Effective Capacity (mAh)", "TTE Change"],
+                rows: [
+                    ["0", "100%", "4850", "Baseline"],
+                    ["100", "97.5%", "4729", "-2.5%"],
+                    ["200", "95.8%", "4646", "-4.2%"],
+                    ["300", "94.4%", "4578", "-5.6%"],
+                    ["400 (knee point)", "93.2%", "4520", "-6.8%"],
+                    ["500", "90.5%", "4389", "-9.5%"],
+                    ["600", "86.8%", "4210", "-13.2%"],
+                    ["700", "82.1%", "3982", "-17.9%"],
+                    ["800", "76.5%", "3710", "-23.5%"]
+                ],
+                note: "SOH = State of Health. TTE = Time to Empty. Testing conditions: 1C charge/discharge, 25°C ambient temperature."
+            },
+
+            // Table.S 30: Charging Habit Impact
+            {
+                id: "table-s30",
+                number: "Table.S 30",
+                title: "Charging Habit Impact",
+                headers: ["Charging Habit", "SOC Range", "DoD", "Relative Cycle Life", "Expected Lifespan"],
+                rows: [
+                    ["Full cycle", "0-100%", "100%", "1.0×", "~2.5 years"],
+                    ["Light usage", "10-90%", "80%", "1.3×", "~3.2 years"],
+                    ["Recommended range", "20-80%", "60%", "1.7×", "~4.2 years"],
+                    ["Conservative usage", "30-70%", "40%", "2.2×", "~5.5 years"],
+                    ["Frequent top-ups", "70-100%", "30%", "2.5×", "~6.2 years"]
+                ],
+                note: "DoD = Depth of Discharge. SOC = State of Charge. Lifespan estimates based on daily full-cycle equivalent."
+            },
+
+            // Table.S 31: Temperature Acceleration Factors
+            {
+                id: "table-s31",
+                number: "Table.S 31",
+                title: "Temperature Acceleration Factors",
+                headers: ["Temperature (°C)", "Aging Acceleration Factor", "Relative Lifespan", "Expected Years"],
+                rows: [
+                    ["10", "0.35", "2.9×", "~7.2 years"],
+                    ["15", "0.50", "2.0×", "~5.0 years"],
+                    ["20", "0.71", "1.4×", "~3.5 years"],
+                    ["25 (reference)", "1.00", "1.0×", "~2.5 years"],
+                    ["30", "1.41", "0.71×", "~1.8 years"],
+                    ["35", "2.00", "0.50×", "~1.2 years"],
+                    ["40", "2.83", "0.35×", "~0.9 years"],
+                    ["45", "4.00", "0.25×", "~0.6 years"]
+                ],
+                note: "Aging acceleration follows Arrhenius equation with activation energy ~50 kJ/mol. Reference: 25°C, 1C cycling."
+            },
+
+            // Table.S 32: High-Temperature Usage Recommendations
+            {
+                id: "table-s32",
+                number: "Table.S 32",
+                title: "High-Temperature Usage Recommendations",
+                headers: ["Scenario", "Risk Level", "Recommended Actions"],
+                rows: [
+                    ["Vehicle interior (direct sunlight)", "Extreme (may exceed 60°C)", "Absolutely avoid; remove device"],
+                    ["Charging while gaming", "High (45°C+)", "Cease gaming or disconnect charger"],
+                    ["Wireless charging", "Medium (35-40°C)", "Prefer wired charging"],
+                    ["Outdoor summer usage", "Medium", "Provide shade; reduce brightness"]
+                ],
+                note: "Risk assessment for high-temperature scenarios. Battery damage becomes significant above 45°C."
+            },
+
+            // Table.S 33: Low-Temperature Usage Recommendations
+            {
+                id: "table-s33",
+                number: "Table.S 33",
+                title: "Low-Temperature Usage Recommendations",
+                headers: ["Scenario", "Risk Level", "Recommended Actions"],
+                rows: [
+                    ["Winter outdoor (<0°C)", "Temporary capacity reduction", "Carry device close to body for warmth"],
+                    ["Skiing/mountaineering", "Potential auto-shutdown", "Use insulating case"],
+                    ["Extreme cold (<-10°C)", "Lithium plating risk", "Avoid charging; warm device first"]
+                ],
+                note: "Low-temperature effects are mostly reversible except when charging below 0°C."
+            },
+
+            // Table.S 34: Charging Rate Impact
+            {
+                id: "table-s34",
+                number: "Table.S 34",
+                title: "Charging Rate Impact",
+                headers: ["Charging Rate", "Charging Time", "Heat Generation", "Cycle Life Impact", "Recommendation"],
+                rows: [
+                    ["0.5C (slow)", "~2.5h", "Low", "Baseline", "Daily preferred"],
+                    ["1C (standard)", "~1.5h", "Medium", "-10%", "Acceptable"],
+                    ["2C (fast)", "~45min", "High", "-25%", "Occasional use"],
+                    ["3C (ultra-fast)", "~30min", "Very high", "-40%", "Emergency only"]
+                ],
+                note: "C-rate: multiple of battery capacity (1C = 4850 mA for 4850 mAh battery). Testing at 25°C ambient temperature."
+            },
+
+            // Table.S 35: Longevity Management Priority
+            {
+                id: "table-s35",
+                number: "Table.S 35",
+                title: "Longevity Management Priority",
+                headers: ["Rank", "Recommendation", "Expected Lifespan Extension", "Implementation Difficulty", "Notes"],
+                rows: [
+                    ["1", "Maintain SOC at 20-80%", "+50-70%", "Medium", "Most important single factor"],
+                    ["2", "Avoid high-temperature environments", "+30-50%", "Medium-High", "Especially critical during charging"],
+                    ["3", "Use slow charging instead of fast charging", "+15-25%", "Low", "When no urgent need exists"],
+                    ["4", "Avoid deep discharge", "+10-20%", "Low", "Maintain above 20%"],
+                    ["5", "Periodic calibration", "+5-10%", "Low", "Full cycle 1-2 times monthly"],
+                    ["6", "Store at 50% SOC for extended periods", "+10-15%", "Low", "For long-term storage"]
+                ],
+                note: "SOC = State of Charge. Implementation difficulty: Low (user), Medium (OS), High (hardware)."
+            },
+
+            // Table.S 36: Device Type Comparison
+            {
+                id: "table-s36",
+                number: "Table.S 36",
+                title: "Device Type Comparison",
+                headers: ["Device Type", "Battery Capacity", "Primary Power Consumers", "Typical Battery Life", "Thermal Management"],
+                rows: [
+                    ["Smartphone", "3000-6000 mAh", "Display, CPU, Network", "8-24 hours", "Passive cooling"],
+                    ["Tablet", "6000-12000 mAh", "Display (large), CPU", "8-15 hours", "Passive cooling"],
+                    ["Smartwatch", "200-500 mAh", "Display, Sensors, Bluetooth", "1-7 days", "None"],
+                    ["Wireless earbuds", "30-100 mAh", "Audio DSP, Bluetooth", "4-8 hours", "None"],
+                    ["Laptop", "40-100 Wh", "CPU, GPU, Display", "4-12 hours", "Active cooling (fan)"],
+                    ["Electric vehicle", "40-100 kWh", "Drivetrain, HVAC", "300-600 km", "Liquid cooling"]
+                ],
+                note: "Typical values for mainstream devices. Battery life depends heavily on usage patterns."
+            },
+
+            // Table.S 37: Smartwatch Power Analysis
+            {
+                id: "table-s37",
+                number: "Table.S 37",
+                title: "Smartwatch Power Analysis",
+                headers: ["Component", "Typical Power", "Percentage"],
+                rows: [
+                    ["Display (always-on)", "20-50 mW", "40%"],
+                    ["Heart rate sensor", "5-15 mW", "15%"],
+                    ["Bluetooth Low Energy", "5-10 mW", "10%"],
+                    ["GPS (active)", "50-80 mW", "-"],
+                    ["Base system", "10-20 mW", "25%"]
+                ],
+                note: "Typical smartwatch with AMOLED display, continuous heart rate monitoring, Bluetooth connected to phone."
+            },
+
+            // Table.S 38: Laptop Power Analysis
+            {
+                id: "table-s38",
+                number: "Table.S 38",
+                title: "Laptop Power Analysis",
+                headers: ["Component", "Idle Power", "Peak Power"],
+                rows: [
+                    ["Display (15\")", "3-5 W", "8-12 W"],
+                    ["CPU", "5-10 W", "35-65 W"],
+                    ["Discrete GPU", "5-15 W", "80-200 W"],
+                    ["SSD storage", "0.5-2 W", "3-8 W"],
+                    ["Cooling fan", "0-1 W", "2-5 W"],
+                    ["Other components", "3-5 W", "5-10 W"]
+                ],
+                note: "Modern ultrabook with Intel Core i7 CPU, integrated graphics. Peak power during gaming/rendering."
+            },
+
+            // Table.S 39: EV Range Factors
+            {
+                id: "table-s39",
+                number: "Table.S 39",
+                title: "EV Range Factors",
+                headers: ["Factor", "Impact Magnitude", "Description"],
+                rows: [
+                    ["Driving style", "±20%", "Aggressive vs. gentle driving"],
+                    ["Speed", "±25%", "Highway vs. urban driving"],
+                    ["HVAC usage", "±15-30%", "Winter impact more significant"],
+                    ["Tire pressure", "±5%", "Low pressure increases rolling resistance"],
+                    ["Payload", "±5-10%", "Approximately 3% per 100 kg"],
+                    ["Terrain", "±10-20%", "Mountain vs. flat terrain"]
+                ],
+                note: "Impact on electric vehicle range relative to EPA combined rating. HVAC: Heating, Ventilation, Air Conditioning."
+            },
+
+            // Table.S 40: System Strategy Recommendations Summary
+            {
+                id: "table-s40",
+                number: "Table.S 40",
+                title: "System Strategy Recommendations Summary",
+                headers: ["Functional Module", "Recommended Strategy", "Expected Effect", "Implementation Priority"],
+                rows: [
+                    ["Adaptive brightness", "Multi-factor model (ambient light + SOC + content + time)", "Additional 10-15% power savings", "High"],
+                    ["Power-saving modes", "SOC-based automatic mode switching", "+30-50% low-battery endurance", "High"],
+                    ["Background management", "Usage frequency-based priority scheduling", "40% background power reduction", "High"],
+                    ["Notification batching", "Priority-based temporal delivery", "80% wake-up reduction", "Medium"],
+                    ["Network management", "Intelligent WiFi/cellular switching", "20% network power reduction", "Medium"],
+                    ["TTE display", "Accurate prediction using proposed model", "Increased user trust", "Medium"],
+                    ["Charging recommendations", "Intelligent 80% charging limit", "+50% battery lifespan", "Low"]
+                ],
+                note: "System-level optimization strategies for mobile operating systems. SOC = State of Charge. TTE = Time to Empty."
+            }
+        ];
+
+        // Function to generate Table of Contents
+        function generateTableOfContents() {
+            const tocGrid = document.getElementById('tocGrid');
+
+            completeTables.forEach(table => {
+                const tocItem = document.createElement('div');
+                tocItem.className = 'toc-item no-break';
+                tocItem.innerHTML = `
+                    <a href="#${table.id}">
+                        <span class="toc-number">${table.number}</span>
+                        <span class="toc-title">${table.title}</span>
+                    </a>
+                `;
+                tocGrid.appendChild(tocItem);
+            });
+        }
+
+        // Function to generate all tables
+        function generateAllTables() {
+            const tablesContainer = document.getElementById('tablesContainer');
+
+            // Group tables by category for better organization
+            const tableGroups = [
+                {
+                    title: "Temperature and Aging Analysis",
+                    tables: completeTables.slice(0, 10) // S1-S10
+                },
+                {
+                    title: "Power Consumption and Optimization",
+                    tables: completeTables.slice(10, 20) // S11-S20
+                },
+                {
+                    title: "User Behavior and System Strategies",
+                    tables: completeTables.slice(20, 30) // S21-S30
+                },
+                {
+                    title: "Device Comparison and Recommendations",
+                    tables: completeTables.slice(30, 40) // S31-S40
+                }
+            ];
+
+            // Create table groups
+            tableGroups.forEach((group, groupIndex) => {
+                const tableSection = document.createElement('div');
+                tableSection.className = 'table-section keep-together';
+
+                // Add page break before each group except the first
+                if (groupIndex > 0) {
+                    tableSection.classList.add('break-before');
+                }
+
+                const sectionHeader = document.createElement('h3');
+                sectionHeader.className = 'section-header keep-together';
+                sectionHeader.textContent = group.title;
+                tableSection.appendChild(sectionHeader);
+
+                // Add tables for this group
+                group.tables.forEach(table => {
+                    const tableWrapper = document.createElement('div');
+                    tableWrapper.className = 'table-wrapper keep-together';
+                    tableWrapper.id = table.id;
+
+                    const tableCard = document.createElement('div');
+                    tableCard.className = 'table-card keep-together';
+
+                    // Table header
+                    const tableHeader = document.createElement('div');
+                    tableHeader.className = 'table-header no-break';
+                    tableHeader.innerHTML = `<h3><span class="table-number">${table.number}</span>${table.title}</h3>`;
+                    tableCard.appendChild(tableHeader);
+
+                    // Table content
+                    const tableContent = document.createElement('div');
+                    tableContent.className = 'table-content';
+
+                    // Create table element
+                    const tableEl = document.createElement('table');
+
+                    // Create header row
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+
+                    table.headers.forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    });
+
+                    thead.appendChild(headerRow);
+                    tableEl.appendChild(thead);
+
+                    // Create table body
+                    const tbody = document.createElement('tbody');
+
+                    table.rows.forEach(rowData => {
+                        const row = document.createElement('tr');
+
+                        rowData.forEach((cellData, cellIndex) => {
+                            const td = document.createElement('td');
+
+                            // Handle special formatting for ± symbols
+                            if (typeof cellData === 'string' && cellData.includes('±')) {
+                                const parts = cellData.split('±');
+                                td.innerHTML = `${parts[0]}<span style="color: var(--text-light);"> ± ${parts[1]}</span>`;
+                            } else {
+                                td.textContent = cellData;
+                            }
+
+                            // Apply special styling based on cell content
+                            if (typeof cellData === 'string') {
+                                // Check for temperature values
+                                if (cellData.includes('-10') || cellData.includes('0') || cellData.includes('10')) {
+                                    td.classList.add('temp-low');
+                                } else if (cellData.includes('25')) {
+                                    td.classList.add('temp-normal');
+                                } else if (cellData.includes('40') || cellData.includes('50')) {
+                                    td.classList.add('temp-high');
+                                } else if (cellData.includes('60')) {
+                                    td.classList.add('temp-extreme');
+                                }
+
+                                // Check for stage classification
+                                if (cellData.includes('Stage 1')) {
+                                    td.classList.add('stage-1');
+                                } else if (cellData.includes('Stage 2')) {
+                                    td.classList.add('stage-2');
+                                } else if (cellData.includes('Knee Point')) {
+                                    td.classList.add('knee-point');
+                                }
+
+                                // Check for efficiency values
+                                if (cellData.includes('100.0%')) {
+                                    td.classList.add('efficiency-high');
+                                } else if (cellData.includes('71.6%') || cellData.includes('60.0%')) {
+                                    td.classList.add('efficiency-medium');
+                                } else if (cellData.includes('45.2%')) {
+                                    td.classList.add('efficiency-low');
+                                }
+
+                                // Check for sensitivity values
+                                if (cellData.includes('-1.05') || cellData.includes('-1.42') || cellData.includes('-0.82')) {
+                                    td.classList.add('sensitivity-high');
+                                } else if (cellData.includes('-0.45') || cellData.includes('-0.35') || cellData.includes('+0.45')) {
+                                    td.classList.add('sensitivity-medium');
+                                } else if (cellData.includes('-0.25') || cellData.includes('-0.15') || cellData.includes('+0.85')) {
+                                    td.classList.add('sensitivity-low');
+                                }
+
+                                // Highlight important data
+                                if (cellData.includes('100.0 ± 0.5') || cellData.includes('Total') || cellData.includes('Weighted Average') ||
+                                    cellData === 'Baseline' || cellData === 'Reference') {
+                                    td.classList.add('data-highlight');
+                                }
+                            }
+
+                            row.appendChild(td);
+                        });
+
+                        tbody.appendChild(row);
+                    });
+
+                    tableEl.appendChild(tbody);
+                    tableContent.appendChild(tableEl);
+                    tableCard.appendChild(tableContent);
+
+                    // Add table note
+                    const tableNote = document.createElement('div');
+                    tableNote.className = 'table-note no-break';
+                    tableNote.innerHTML = `<i class="fas fa-info-circle"></i> ${table.note}`;
+                    tableCard.appendChild(tableNote);
+
+                    tableWrapper.appendChild(tableCard);
+                    tableSection.appendChild(tableWrapper);
+                });
+
+                tablesContainer.appendChild(tableSection);
+            });
+        }
+
+        // Back to top functionality (for screen only)
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize the document
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate table of contents and tables
+            generateTableOfContents();
+            generateAllTables();
+
+            // Add smooth scrolling for TOC links
+            document.querySelectorAll('.toc-item a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add print event listener
+            window.addEventListener('beforeprint', () => {
+                // Add page break markers for better PDF generation
+                document.querySelectorAll('.table-section').forEach((section, index) => {
+                    if (index > 0) {
+                        section.style.pageBreakBefore = 'always';
+                    }
+                });
+            });
+        });
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+Home: Go to top
+            if (e.ctrlKey && e.key === 'Home') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Ctrl+End: Go to bottom
+            if (e.ctrlKey && e.key === 'End') {
+                e.preventDefault();
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
